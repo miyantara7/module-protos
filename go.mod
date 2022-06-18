@@ -1,4 +1,4 @@
-module module-protos
+module github.com/vins7/module-protos
 
 go 1.17
 
