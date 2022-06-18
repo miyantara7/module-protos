@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package user_management;
+
+option go_package = "./;user_management";
+
+message LoginRequest {
+  string Username = 1;
+  string Password = 2;
+}
+
+
+service TransactionNotpoolService {
+  rpc Login(LoginRequest) returns (google.protobuf.Empty);
+}
