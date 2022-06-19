@@ -10,6 +10,6 @@ message LoginRequest {
 }
 
 
-service TransactionNotpoolService {
+service UsermanagementService {
   rpc Login(LoginRequest) returns (google.protobuf.Empty);
 }

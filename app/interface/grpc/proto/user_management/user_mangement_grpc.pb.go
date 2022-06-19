@@ -14,81 +14,81 @@ import (
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion7
 
-// TransactionNotpoolServiceClient is the client API for TransactionNotpoolService service.
+// UsermanagementServiceClient is the client API for UsermanagementService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TransactionNotpoolServiceClient interface {
+type UsermanagementServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
-type transactionNotpoolServiceClient struct {
+type usermanagementServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTransactionNotpoolServiceClient(cc grpc.ClientConnInterface) TransactionNotpoolServiceClient {
-	return &transactionNotpoolServiceClient{cc}
+func NewUsermanagementServiceClient(cc grpc.ClientConnInterface) UsermanagementServiceClient {
+	return &usermanagementServiceClient{cc}
 }
 
-func (c *transactionNotpoolServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *usermanagementServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/user_management.TransactionNotpoolService/Login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/user_management.UsermanagementService/Login", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TransactionNotpoolServiceServer is the server API for TransactionNotpoolService service.
-// All implementations should embed UnimplementedTransactionNotpoolServiceServer
+// UsermanagementServiceServer is the server API for UsermanagementService service.
+// All implementations should embed UnimplementedUsermanagementServiceServer
 // for forward compatibility
-type TransactionNotpoolServiceServer interface {
+type UsermanagementServiceServer interface {
 	Login(context.Context, *LoginRequest) (*emptypb.Empty, error)
 }
 
-// UnimplementedTransactionNotpoolServiceServer should be embedded to have forward compatible implementations.
-type UnimplementedTransactionNotpoolServiceServer struct {
+// UnimplementedUsermanagementServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedUsermanagementServiceServer struct {
 }
 
-func (UnimplementedTransactionNotpoolServiceServer) Login(context.Context, *LoginRequest) (*emptypb.Empty, error) {
+func (UnimplementedUsermanagementServiceServer) Login(context.Context, *LoginRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 
-// UnsafeTransactionNotpoolServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TransactionNotpoolServiceServer will
+// UnsafeUsermanagementServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UsermanagementServiceServer will
 // result in compilation errors.
-type UnsafeTransactionNotpoolServiceServer interface {
-	mustEmbedUnimplementedTransactionNotpoolServiceServer()
+type UnsafeUsermanagementServiceServer interface {
+	mustEmbedUnimplementedUsermanagementServiceServer()
 }
 
-func RegisterTransactionNotpoolServiceServer(s grpc.ServiceRegistrar, srv TransactionNotpoolServiceServer) {
-	s.RegisterService(&_TransactionNotpoolService_serviceDesc, srv)
+func RegisterUsermanagementServiceServer(s grpc.ServiceRegistrar, srv UsermanagementServiceServer) {
+	s.RegisterService(&_UsermanagementService_serviceDesc, srv)
 }
 
-func _TransactionNotpoolService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UsermanagementService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TransactionNotpoolServiceServer).Login(ctx, in)
+		return srv.(UsermanagementServiceServer).Login(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/user_management.TransactionNotpoolService/Login",
+		FullMethod: "/user_management.UsermanagementService/Login",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TransactionNotpoolServiceServer).Login(ctx, req.(*LoginRequest))
+		return srv.(UsermanagementServiceServer).Login(ctx, req.(*LoginRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _TransactionNotpoolService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "user_management.TransactionNotpoolService",
-	HandlerType: (*TransactionNotpoolServiceServer)(nil),
+var _UsermanagementService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "user_management.UsermanagementService",
+	HandlerType: (*UsermanagementServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Login",
-			Handler:    _TransactionNotpoolService_Login_Handler,
+			Handler:    _UsermanagementService_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
