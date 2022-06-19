@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
 package user_management;
 
 option go_package = "./;user_management";
@@ -9,7 +8,12 @@ message LoginRequest {
   string Password = 2;
 }
 
+message LoginResponse {
+  string Username = 1;
+  string Token = 2;
+}
+
 
 service UsermanagementService {
-  rpc Login(LoginRequest) returns (google.protobuf.Empty);
+  rpc Login(LoginRequest) returns (LoginResponse);
 }
