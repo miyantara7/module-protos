@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -17,7 +18,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsermanagementServiceClient interface {
-	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetDetailUserInformation(ctx context.Context, in *UserInformationReq, opts ...grpc.CallOption) (*UserInformationRes, error)
 }
 
 type usermanagementServiceClient struct {
@@ -28,9 +31,27 @@ func NewUsermanagementServiceClient(cc grpc.ClientConnInterface) UsermanagementS
 	return &usermanagementServiceClient{cc}
 }
 
-func (c *usermanagementServiceClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+func (c *usermanagementServiceClient) LoginUser(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
 	out := new(LoginResponse)
-	err := c.cc.Invoke(ctx, "/bussiness.UsermanagementService/Login", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/bussiness.UsermanagementService/LoginUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usermanagementServiceClient) RegisterUser(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, "/bussiness.UsermanagementService/RegisterUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usermanagementServiceClient) GetDetailUserInformation(ctx context.Context, in *UserInformationReq, opts ...grpc.CallOption) (*UserInformationRes, error) {
+	out := new(UserInformationRes)
+	err := c.cc.Invoke(ctx, "/bussiness.UsermanagementService/GetDetailUserInformation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -41,15 +62,23 @@ func (c *usermanagementServiceClient) Login(ctx context.Context, in *LoginReques
 // All implementations should embed UnimplementedUsermanagementServiceServer
 // for forward compatibility
 type UsermanagementServiceServer interface {
-	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	LoginUser(context.Context, *LoginRequest) (*LoginResponse, error)
+	RegisterUser(context.Context, *RegisterRequest) (*emptypb.Empty, error)
+	GetDetailUserInformation(context.Context, *UserInformationReq) (*UserInformationRes, error)
 }
 
 // UnimplementedUsermanagementServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedUsermanagementServiceServer struct {
 }
 
-func (UnimplementedUsermanagementServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+func (UnimplementedUsermanagementServiceServer) LoginUser(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginUser not implemented")
+}
+func (UnimplementedUsermanagementServiceServer) RegisterUser(context.Context, *RegisterRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
+}
+func (UnimplementedUsermanagementServiceServer) GetDetailUserInformation(context.Context, *UserInformationReq) (*UserInformationRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDetailUserInformation not implemented")
 }
 
 // UnsafeUsermanagementServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -63,20 +92,56 @@ func RegisterUsermanagementServiceServer(s grpc.ServiceRegistrar, srv Usermanage
 	s.RegisterService(&_UsermanagementService_serviceDesc, srv)
 }
 
-func _UsermanagementService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UsermanagementService_LoginUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LoginRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UsermanagementServiceServer).Login(ctx, in)
+		return srv.(UsermanagementServiceServer).LoginUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bussiness.UsermanagementService/Login",
+		FullMethod: "/bussiness.UsermanagementService/LoginUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsermanagementServiceServer).Login(ctx, req.(*LoginRequest))
+		return srv.(UsermanagementServiceServer).LoginUser(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UsermanagementService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsermanagementServiceServer).RegisterUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bussiness.UsermanagementService/RegisterUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsermanagementServiceServer).RegisterUser(ctx, req.(*RegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UsermanagementService_GetDetailUserInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserInformationReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsermanagementServiceServer).GetDetailUserInformation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bussiness.UsermanagementService/GetDetailUserInformation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsermanagementServiceServer).GetDetailUserInformation(ctx, req.(*UserInformationReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -86,8 +151,16 @@ var _UsermanagementService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*UsermanagementServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Login",
-			Handler:    _UsermanagementService_Login_Handler,
+			MethodName: "LoginUser",
+			Handler:    _UsermanagementService_LoginUser_Handler,
+		},
+		{
+			MethodName: "RegisterUser",
+			Handler:    _UsermanagementService_RegisterUser_Handler,
+		},
+		{
+			MethodName: "GetDetailUserInformation",
+			Handler:    _UsermanagementService_GetDetailUserInformation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

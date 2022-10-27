@@ -2,6 +2,7 @@ syntax = "proto3";
 package bussiness;
 
 option go_package = "./;bussiness";
+import "google/protobuf/empty.proto";
 
 message LoginRequest {
   string Username = 1;
@@ -9,11 +10,35 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string Username = 1;
-  string Token = 2;
+  string UserID = 1;
+  string Username = 2;
 }
 
+message RegisterRequest {
+  string Username = 1;
+  string Password = 2;
+  string Nama = 3;
+  string Email = 4;
+  string NoIdentitas = 5;
+  string TglLahir = 6;
+}
+
+message UserInformationReq {
+  string UserID = 1;
+  string Username = 2;
+}
+
+message UserInformationRes {
+  string UserID = 1;
+  string Username = 2;
+  string Nama = 3;
+  string Email = 4;
+  string NoIdentitas = 5;
+  string TglLahir = 6;
+}
 
 service UsermanagementService {
-  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc LoginUser(LoginRequest) returns (LoginResponse);
+  rpc RegisterUser(RegisterRequest) returns (google.protobuf.Empty);
+  rpc GetDetailUserInformation(UserInformationReq) returns (UserInformationRes);
 }

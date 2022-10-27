@@ -17,8 +17,10 @@ message LoginResponse {
 message RegisterRequest {
   string Username = 1;
   string Password = 2;
-  string Email = 3;
-  string NoIdentitas = 4;
+  string Nama = 3;
+  string Email = 4;
+  string NoIdentitas = 5;
+  string TglLahir = 6;
 }
 
 message UserInformationReq {
@@ -29,7 +31,10 @@ message UserInformationReq {
 message UserInformationRes {
   string UserID = 1;
   string Username = 2;
-  string Email = 3;
+  string Nama = 3;
+  string Email = 4;
+  string NoIdentitas = 5;
+  string TglLahir = 6;
 }
 
 service UsermanagementService {
