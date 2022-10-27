@@ -2,6 +2,7 @@ syntax = "proto3";
 package user_management;
 
 option go_package = "./;user_management";
+import "google/protobuf/empty.proto";
 
 message LoginRequest {
   string Username = 1;
@@ -9,11 +10,30 @@ message LoginRequest {
 }
 
 message LoginResponse {
-  string Username = 1;
-  string Token = 2;
+  string UserID = 1;
+  string Username = 2;
 }
 
+message RegisterRequest {
+  string Username = 1;
+  string Password = 2;
+  string Email = 3;
+  string NoIdentitas = 4;
+}
+
+message UserInformationReq {
+  string UserID = 1;
+  string Username = 2;
+}
+
+message UserInformationRes {
+  string UserID = 1;
+  string Username = 2;
+  string Email = 3;
+}
 
 service UsermanagementService {
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(RegisterRequest) returns (google.protobuf.Empty);
+  rpc UserInformation(UserInformationReq) returns (UserInformationRes);
 }
