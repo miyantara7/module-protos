@@ -1,0 +1,68 @@
+syntax = "proto3";
+package bussiness;
+
+option go_package = "./;bussiness";
+import "google/protobuf/empty.proto";
+
+message BillerRequest {
+  string ID = 1;
+}
+
+message BillerResponse {
+    repeated Biller ListBiller = 1;
+}
+
+message Biller {
+    string ID = 1;
+    string Category = 2;
+    string Product = 3;
+    string Description = 4;
+    string Price = 5;
+    string Fee = 6;
+}
+
+message GetBalanceRequest {
+  string NoKartu = 1;
+}
+
+message GetBalanceResponse {
+  string NoKartu = 1;
+  string Balance = 2;
+}
+
+message CreateEMoneyRequest {
+  string Saldo = 1;
+}
+
+message CreateEMoneyResponse {
+  string UserId = 1;
+  string UserName = 2;
+  string NoKartu = 3;
+}
+
+message GetTrxHistReq {
+  string NoKartu = 1;
+}
+
+message GetTrxHistResponse {
+  repeated TrxHist ListTrxHist = 1;
+}
+
+message TrxHist {
+  string ID = 1;
+  string UserId = 2;
+  string NoKartu = 3;
+  string CreatedDate = 4;
+  string UpdateDate = 5;
+  string Setor = 6;
+  string Tarik = 7;
+  string Balance = 8;
+}
+
+service BillerService {
+  rpc ListBiller(google.protobuf.Empty) returns (BillerResponse);
+  rpc DetailBiller(BillerRequest) returns (Biller);
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
+  rpc CreateEMoney(CreateEMoneyRequest) returns (CreateEMoneyResponse);
+  rpc GetTrxHist(GetTrxHistReq) returns (GetTrxHistResponse);
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package bussiness;
+
+option go_package = "./;bussiness";
+import "google/protobuf/empty.proto";
+
+message TopUpRequest {
+    string Balance = 1;
+    string NoKartu = 2;
+  }
+
+message PaymentRequest {
+    string BillerId = 1;
+    string NoKartu = 2;
+  }
+
+service TopUpServices {
+    rpc TopUp(TopUpRequest) returns (google.protobuf.Empty);
+    rpc Payment(PaymentRequest) returns (google.protobuf.Empty);
+  }
