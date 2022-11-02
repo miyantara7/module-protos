@@ -1,7 +1,7 @@
 syntax = "proto3";
 package e_money_service;
 
-option go_package = "./;e_money_service";
+option go_package = "github.com/vins7/module-protos/app/interface/grpc/proto/e_money_service;e_money_service";
 import "google/protobuf/empty.proto";
 
 message BillerRequest {

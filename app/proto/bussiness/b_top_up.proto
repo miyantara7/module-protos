@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package bussiness;
 
-option go_package = "./;bussiness";
+option go_package = "github.com/vins7/module-protos/app/interface/grpc/proto/bussiness;bussiness";
 import "google/protobuf/empty.proto";
 
 message TopUpRequest {
