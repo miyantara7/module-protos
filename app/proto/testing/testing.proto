@@ -1,0 +1,11 @@
+syntax = "proto3";
+option go_package = "github.com/vins7/module-protos/app/interface/grpc/proto/testing;testing";
+package testing;
+
+import "app/proto/testing/test.proto";
+import "google/protobuf/empty.proto";
+
+service TopUpServices {
+    rpc TopUp(TopUpRequest) returns (google.protobuf.Empty);
+    rpc Payment(TopUpRequest) returns (google.protobuf.Empty);
+  }

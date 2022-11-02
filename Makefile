@@ -34,3 +34,19 @@ protoc: clean
 	--go-grpc_out=require_unimplemented_servers=false:../../interface/grpc/proto/top_up_service *.proto \
 
 
+generate-proto: 
+	@echo "Generating proto file for golang and javascript ...."
+	@echo "Using protoc version" $$(protoc --version), "protoc-gen-go version", $$(protoc-gen-go --version)
+	@echo "Generate go struct to" $$(pwd)/$$PROTOGOPPATH
+	@echo "Generate javascript struct to" $$(pwd)/$$PROTOJSPPATH
+	@for entry in $$(find $$PROTOPATH -iname "*.proto"); do\
+		protoc --go_out=$$(pwd)/$$PROTOGOPPATH \
+		--go_opt=paths=import \
+		--go_opt=module=github.com/vins7/module-protos/app \
+		--go-grpc_out=$$(pwd)/$$PROTOGOPPATH \
+		--go-grpc_opt=paths=import \
+		--go-grpc_opt=module=code.afis.me/go-nano-services/modules/proto/go \
+		$$entry;\
+    done
+
+
